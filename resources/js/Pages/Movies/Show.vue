@@ -21,11 +21,17 @@ function confirmDelete() {
     confirmation.value.show();
 }
 
+function toggleFavourite() {
+    if (movie.favourited) {
+        router.delete(route('movies.favourite', movie))
+    } else {
+        router.post(route('movies.favourite', movie))
+    }
+}
 
 function doDelete() {
     router.delete(route('movies.destroy', movie))
 }
-
 
 </script>
 
@@ -84,6 +90,14 @@ function doDelete() {
             <p class="text-slate-400">
                 {{ movie.description }}
             </p>
+
+            <br/>
+
+            <div>
+                <button class="btn w-full" :class="{'btn-secondary': !movie.favourited, 'btn-primary': movie.favourited}" @click="toggleFavourite">
+                    {{ movie.favourited ? 'Unfavourite' : 'Favourite' }}
+                </button>
+            </div>
         </div>
     </div>
 </template>
